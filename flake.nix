@@ -1,12 +1,12 @@
 {
-  description = "A Nix-flake-based Go 1.22 development environment";
+  description = "A CLI and server for interacting with WorldAnvil and local markdown files.";
 
   inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
 
   outputs =
     inputs:
     let
-      goVersion = 23; # Change this to update the whole stack
+      goVersion = 25;
 
       supportedSystems = [
         "x86_64-linux"
@@ -36,12 +36,9 @@
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
-              # go (version is specified by overlay)
               go
-
-              # goimports, godoc, etc.
+              gopls
               gotools
-
               # https://github.com/golangci/golangci-lint
               golangci-lint
             ];
