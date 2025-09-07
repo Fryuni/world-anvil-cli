@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"emperror.dev/emperror"
 	"github.com/Fryuni/world-anvil-cli/pkg/config"
 )
 
@@ -23,8 +24,15 @@ func main() {
 		fmt.Println("world-anvil-cli v0.1.0")
 	case "config":
 		fmt.Printf("Configuration loaded: %+v\n", cfg)
+	case "download-spec":
+		downloadSpec()
 	default:
 		fmt.Printf("Unknown command: %s\n", command)
 		os.Exit(1)
 	}
+}
+
+func must[T any](value T, err error) T {
+	emperror.Panic(err)
+	return value
 }
